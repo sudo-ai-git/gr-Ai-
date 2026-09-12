@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>gr{Ai}Γ Compute Specification Flyer</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0b1118; color: #e2e8f0; -webkit-font-smoothing: antialiased; }
+.flyer-page { width: 100%; max-width: 850px; min-height: 1100px; margin: 0 auto; background: #fff; color: #0f172a; box-shadow: 0 25px 50px -12px rgba(0,0,0,.5); display: flex; flex-direction: column; position: relative; }
+.page-two { page-break-before: always; margin-top: 40px; }
+@media print { body { background: #fff; } .flyer-page { box-shadow: none; margin: 0; max-width: 100%; min-height: 100vh; } .page-two { margin-top: 0; } .no-print { display: none !important; } @page { size: letter portrait; margin: 0.25in; } }
+.header { background: #0f172a; color: #fff; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #14b8a6; }
+.header-brand { display: flex; align-items: center; gap: 10px; }
+.header-logo { width: 32px; height: 32px; border-radius: 6px; overflow: hidden; }
+.header-logo img { width: 100%; height: 100%; object-fit: cover; }
+.header-title { font-size: 13px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; }
+.header-right { text-align: right; font-size: 11px; color: #14b8a6; font-weight: 600; }
+.hero { background: linear-gradient(135deg, #060b11, #09141f, #04070a); color: #fff; padding: 20px 24px; border-bottom: 2px solid rgba(20,184,166,.5); min-height: 200px; position: relative; overflow: hidden; }
+.hero-glow { position: absolute; right: 0; top: 0; bottom: 0; width: 50%; background: radial-gradient(ellipse at right, rgba(20,184,166,.25), transparent 70%); pointer-events: none; }
+.hero-content { position: relative; z-index: 1; }
+.hero-tag { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 20px; background: rgba(20,184,166,.15); border: 1px solid rgba(20,184,166,.4); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #14b8a6; margin-bottom: 8px; }
+.hero-tag-dot { width: 6px; height: 6px; border-radius: 50%; background: #14b8a6; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+.hero h2 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+.hero p { font-size: 12px; color: #94a3b8; line-height: 1.5; max-width: 500px; margin-bottom: 12px; }
+.spec-box { background: rgba(15,23,24,.85); backdrop-filter: blur(8px); border: 2px solid rgba(20,184,166,.6); border-radius: 8px; padding: 12px 16px; max-width: 340px; }
+.spec-box-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(20,184,166,.3); padding-bottom: 6px; margin-bottom: 8px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #14b8a6; }
+.spec-box-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; font-size: 11px; }
+.spec-box-grid .label { color: #94a3b8; }
+.spec-box-grid .value { color: #f1f5f9; font-weight: 600; }
+.spec-box-grid .value.teal { color: #14b8a6; }
+.spec-box-grid .value.emerald { color: #34d399; }
+.main { padding: 20px 24px; flex: 1; display: flex; flex-direction: column; justify-content: between; }
+.section { margin-bottom: 20px; }
+.section-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #0d9488; padding-bottom: 6px; margin-bottom: 10px; }
+.section-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #0f172a; }
+.section-sub { font-size: 10px; color: #64748b; }
+table { width: 100%; border-collapse: collapse; font-size: 11px; }
+thead th { background: #0f172a; color: #e2e8f0; padding: 8px 6px; text-align: center; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; border-right: 1px solid #1e293b; }
+thead th:last-child { border-right: none; }
+thead th.grai { background: rgba(20,184,166,.25); color: #0f172a; border: 2px solid #14b8a6; }
+tbody tr { border-bottom: 1px solid #e2e8f0; }
+tbody tr:nth-child(even) { background: #f8fafc; }
+tbody td { padding: 6px; text-align: center; color: #475569; border-right: 1px solid #e2e8f0; font-variant-numeric: tabular-nums; }
+tbody td:last-child { border-right: none; }
+tbody td.metric { text-align: left; font-weight: 600; color: #1e293b; }
+tbody td.grai { font-weight: 800; color: #0f172a; background: rgba(20,184,166,.12); border-left: 2px solid #14b8a6; border-right: 2px solid #14b8a6; }
+tbody tr:last-child td.grai { border-bottom: 2px solid #14b8a6; }
+.footnote { font-size: 10px; color: #64748b; padding-top: 8px; display: flex; justify-content: space-between; border-top: 1px solid #e2e8f0; }
+.footnote .page-num { color: #0d9488; font-weight: 700; }
+.footer { background: #0f172a; color: #cbd5e1; padding: 10px 24px; display: flex; align-items: center; justify-content: space-between; font-size: 11px; border-top: 1px solid rgba(20,184,166,.4); }
+.footer-left { display: flex; align-items: center; gap: 12px; }
+.footer-left a { color: #14b8a6; text-decoration: none; }
+.footer-left a:hover { text-decoration: underline; }
+.footer-right a { color: #14b8a6; font-weight: 700; text-decoration: none; }
+.footer-right a:hover { text-decoration: underline; }
+.col2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 700px) { .col2 { grid-template-columns: 1fr; } }
+.chart-container { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; }
+.bar-chart { display: flex; align-items: flex-end; gap: 8px; height: 160px; padding-top: 10px; }
+.bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.bar { width: 100%; border-radius: 4px 4px 0 0; transition: height 0.3s; position: relative; }
+.bar.grai { background: #0d9488; border: 1.5px solid #14b8a6; }
+.bar.other { background: #64748b; border: 1.5px solid #475569; }
+.bar-label { font-size: 9px; font-weight: 600; color: #1e293b; text-align: center; }
+.bar-value { font-size: 9px; color: #14b8a6; font-weight: 700; }
+.chart-insights { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 12px; }
+.insight { background: #fff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 8px; text-align: center; }
+.insight-label { font-size: 9px; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; }
+.insight-value { font-size: 12px; font-weight: 700; color: #0d9488; }
+.spec-list { list-style: none; padding: 0; }
+.spec-list li { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid #e2e8f0; font-size: 11px; }
+.spec-list li:last-child { border-bottom: none; }
+.spec-icon { width: 28px; height: 28px; border-radius: 6px; background: rgba(20,184,166,.1); display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.spec-label { color: #64748b; font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
+.spec-val { color: #0f172a; font-weight: 600; }
+.methodology { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; font-size: 10.5px; color: #475569; line-height: 1.6; }
+.methodology strong { color: #0f172a; }
+.toolbar { position: sticky; top: 0; z-index: 100; background: rgba(15,23,24,.95); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(20,184,166,.3); padding: 8px 16px; display: flex; align-items: center; justify-content: space-between; }
+.toolbar-btn { background: rgba(20,184,166,.1); border: 1px solid rgba(20,184,166,.4); color: #14b8a6; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.toolbar-btn:hover { background: rgba(20,184,166,.2); }
+.toolbar-btn.primary { background: #14b8a6; color: #0f172a; border-color: #14b8a6; }
+.toolbar-btn.primary:hover { background: #0d9488; }
+</style>
+</head>
+<body>
+
+<div class="no-print toolbar">
+  <div style="display:flex;gap:8px;align-items:center;">
+    <button class="toolbar-btn" onclick="window.print()">🖨 Print / Save PDF</button>
+  </div>
+  <div style="font-size:11px;color:#14b8a6;font-weight:600;">gr{Ai}Γ Compute Specification Flyer</div>
+</div>
+
+<!-- PAGE 1 -->
+<div class="flyer-page">
+  <div class="header">
+    <div class="header-brand">
+      <div class="header-logo"><img src="logo.jpg" alt="gr{Ai}Γ Logo"></div>
+      <div>
+        <div class="header-title">gr{Ai}Γ</div>
+        <div style="font-size:9px;color:#64748b;letter-spacing:0.1em;">100 MONKEYS · Photonic Neuromorphic AI</div>
+      </div>
+    </div>
+    <div>
+      <div class="header-title">Comparative Compute Specification</div>
+      <div style="font-size:10px;color:#64748b;margin-top:2px;">Reference Implementation · September 2026</div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="hero-tag"><span class="hero-tag-dot"></span> DETERMINISTIC PHOTONIC NEUROMORPHIC AI FRAMEWORK</div>
+      <h2>Deterministic Photonic Neuromorphic Framework <span style="color:#14b8a6;font-size:14px;">v1.0</span></h2>
+      <p>Delivering radical energy efficiency and microsecond latency on unaccelerated commodity hardware. Breaking algorithmic and matrix bottlenecks without GPU clusters.</p>
+      <div class="spec-box">
+        <div class="spec-box-header">
+          <span>⚙ CORE SPECIFICATION</span>
+          <span style="color:#34d399;">✓ VERIFIED</span>
+        </div>
+        <div class="spec-box-grid">
+          <span class="label">STATUS:</span><span class="value teal">OPERATIONAL</span>
+          <span class="label">PLATFORM:</span><span class="value">COMMODITY CPU</span>
+          <span class="label">GPU:</span><span class="value emerald">NONE</span>
+          <span class="label">DEMO:</span><span class="value teal" style="text-decoration:underline;cursor:pointer;">AVAILABLE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="section">
+      <div class="section-header">
+        <span class="section-title">⚡ Energy and Scale Reference</span>
+        <span class="section-sub">Power Draw & Workload Scaling vs Frontier Industry Models</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:18%;text-align:left;">Metric</th>
+            <th class="grai">gr{Ai}Γ<br><span style="font-size:8px;font-weight:400;">Reference</span></th>
+            <th>OpenAI / ChatGPT</th>
+            <th>Anthropic / Claude</th>
+            <th>DeepSeek</th>
+            <th>Gemini</th>
+            <th>Google Search</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="metric">Native operation</td><td class="grai">Complex-set resolution</td><td>Query</td><td>Prompt</td><td>Prompt</td><td>Text prompt</td><td>Search</td></tr>
+          <tr><td class="metric">Energy / native op</td><td class="grai">0.000000225 Wh</td><td>0.34 Wh</td><td>~0.30 Wh [N]</td><td>~0.30 Wh [N]</td><td>0.24 Wh</td><td>0.30 Wh</td></tr>
+          <tr><td class="metric">Energy / 1B op</td><td class="grai">0.225 kWh</td><td>340,000 kWh</td><td>~300,000 kWh</td><td>~300,000 kWh</td><td>240,000 kWh</td><td>300,000 kWh</td></tr>
+          <tr><td class="metric">Energy / 3.5B op</td><td class="grai">0.788 kWh</td><td>1.19 GWh</td><td>~1.05 GWh</td><td>~1.05 GWh</td><td>840 MWh</td><td>1.05 GWh</td></tr>
+          <tr><td class="metric">Average load @ 3.5B/day</td><td class="grai">32.8 W</td><td>49.6 MW</td><td>~43.8 MW</td><td>~43.8 MW</td><td>35 MW</td><td>43.8 MW</td></tr>
+          <tr><td class="metric">Annual energy @ 3.5B/day</td><td class="grai">287 kWh</td><td>434 GWh</td><td>~383 GWh</td><td>~383 GWh</td><td>307 GWh</td><td>383 GWh</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-title">🚀 Throughput and Latency Reference</span>
+        <span class="section-sub">Operational Velocity, Latency & Silicon Infrastructure</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:18%;text-align:left;">Metric</th>
+            <th class="grai">gr{Ai}Γ<br><span style="font-size:8px;font-weight:400;">Reference</span></th>
+            <th>OpenAI / ChatGPT</th>
+            <th>Anthropic / Claude</th>
+            <th>DeepSeek</th>
+            <th>Gemini</th>
+            <th>Google Search</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="metric">Reference / model</td><td class="grai">Current prototype</td><td>GPT-5.4 xhigh</td><td>Claude Sonnet 4.6 Max</td><td>DeepSeek V3.2</td><td>Gemini 3.1 Pro</td><td>Google Search</td></tr>
+          <tr><td class="metric">Native operation</td><td class="grai">Complex-set resolution</td><td>Output token</td><td>Output token</td><td>Output token</td><td>Output token</td><td>Search response</td></tr>
+          <tr><td class="metric">Native rate</td><td class="grai">55,556/s</td><td>129.3/s</td><td>~52/s</td><td>230/s</td><td>126.2/s</td><td>~4/s</td></tr>
+          <tr><td class="metric">Initial latency</td><td class="grai">0.018 ms</td><td>124.63 s</td><td>~128 s</td><td>0.96 s</td><td>23.18 s</td><td>~250 ms</td></tr>
+          <tr><td class="metric">Native output / hour</td><td class="grai">200.0M</td><td>465K</td><td>~187K</td><td>828K</td><td>454K</td><td>~14.4K</td></tr>
+          <tr><td class="metric">GPU / accelerator</td><td class="grai">NONE</td><td>Accelerator infrastructure</td><td>Accelerator infrastructure</td><td>Blackwell Ultra TPU</td><td>Mixed infrastructure</td><td>Distributed infrastructure</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="footnote">
+      <span>* [N] Normalized external data. Calculations based on published frontier model energy disclosures.</span>
+      <span class="page-num">PAGE 1 OF 2</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">
+      <span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#14b8a6;display:inline-block;"></span> Chad Coulter</span>
+      <a href="mailto:chad.coulter@100monkeys.app">chad.coulter@100monkeys.app</a>
+      <a href="tel:309-573-4012">309-573-4012</a>
+    </div>
+    <div class="footer-right">
+      <a href="https://100monkeys.app" target="_blank">100monkeys.app ↗</a>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="flyer-page page-two">
+  <div class="header">
+    <div class="header-brand">
+      <div class="header-logo"><img src="logo.jpg" alt="gr{Ai}Γ Logo"></div>
+      <div>
+        <div class="header-title">gr{Ai}Γ</div>
+        <div style="font-size:9px;color:#64748b;letter-spacing:0.1em;">100 MONKEYS · Photonic Neuromorphic AI</div>
+      </div>
+    </div>
+    <div>
+      <div class="header-title">Specification Deep-Dive</div>
+      <div style="font-size:10px;color:#64748b;margin-top:2px;">Hardware Architecture & Scalability</div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="col2">
+      <!-- Column 1 -->
+      <div>
+        <div class="section">
+          <div class="section-header">
+            <span class="section-title">⚙ gr{Ai}Γ Reference Implementation</span>
+          </div>
+          <ul class="spec-list">
+            <li><span class="spec-icon">🖥</span><div><div class="spec-label">Processor</div><div class="spec-val">Intel Core i7-10750H</div></div></li>
+            <li><span class="spec-icon">🧠</span><div><div class="spec-label">Physical cores / Threads</div><div class="spec-val">6 Cores | 12 Logical threads</div></div></li>
+            <li><span class="spec-icon">💾</span><div><div class="spec-label">System memory</div><div class="spec-val">62.6 GB</div></div></li>
+            <li><span class="spec-icon">⚡</span><div><div class="spec-label">Execution environment</div><div class="spec-val">Local</div></div></li>
+            <li><span class="spec-icon">🚀</span><div><div class="spec-label">Implementation status</div><div class="spec-val" style="color:#34d399;">Operational</div></div></li>
+            <li><span class="spec-icon">⭕</span><div><div class="spec-label">GPU / AI accelerator</div><div class="spec-val">None (CPU-only)</div></div></li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <div class="section-header">
+            <span class="section-title">📊 Benchmark Results</span>
+          </div>
+          <table>
+            <thead><tr><th>Benchmark</th><th>Latency</th><th>Throughput</th></tr></thead>
+            <tbody>
+              <tr><td>Complex-set resolution</td><td>0.018 ms</td><td>55,556/sec</td></tr>
+              <tr><td>State resolution</td><td>0.155 ms</td><td>6,452/sec</td></tr>
+              <tr><td>Oracle resolution</td><td>0.611 ms</td><td>1,637/sec</td></tr>
+              <tr><td>cGEMM n=512</td><td>264.8 GFLOP/sec</td><td>Native matrix</td></tr>
+              <tr><td>Gate XPM</td><td>143.7K eval/sec</td><td>Deterministic</td></tr>
+              <tr><td>Measurement</td><td>1.9M shots/sec</td><td>Zero-overhead</td></tr>
+              <tr><td>Minsky in-process</td><td>~129K steps/sec</td><td>Synchronous</td></tr>
+              <tr><td style="color:#34d399;font-weight:700;">P1-P4 verification</td><td style="color:#34d399;font-weight:700;">20/20 PASS</td><td style="color:#34d399;font-weight:700;">100% Validated ✓</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Column 2 -->
+      <div>
+        <div class="section">
+          <div class="section-header">
+            <span class="section-title">📈 Capacity and Energy</span>
+          </div>
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#475569;margin-bottom:6px;">Complex-Set Resolution Capacity</div>
+          <table>
+            <thead><tr><th>Interval</th><th style="text-align:right;">Resolutions</th></tr></thead>
+            <tbody>
+              <tr><td>1 second</td><td style="text-align:right;font-weight:600;">55,556</td></tr>
+              <tr><td>1 minute</td><td style="text-align:right;font-weight:600;">3.33M</td></tr>
+              <tr><td>1 hour</td><td style="text-align:right;font-weight:600;">200.0M</td></tr>
+              <tr style="background:rgba(20,184,166,.1);font-weight:800;color:#0d9488;"><td>24 hours</td><td style="text-align:right;">4.80B</td></tr>
+            </tbody>
+          </table>
+
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#475569;margin:12px 0 6px;">Energy Breakdown</div>
+          <ul class="spec-list">
+            <li><span class="spec-icon">⚡</span><div><div class="spec-label">Energy / resolution</div><div class="spec-val" style="color:#0d9488;">0.000000225 Wh</div></div></li>
+            <li><span class="spec-icon">🔋</span><div><div class="spec-label">Resolutions / kWh</div><div class="spec-val" style="color:#0d9488;">4.44B</div></div></li>
+            <li><span class="spec-icon">🔌</span><div><div class="spec-label">TDP Consumption</div><div class="spec-val" style="color:#0d9488;">45 W × 24 h = 1.08 kWh</div></div></li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <div class="section-header">
+            <span class="section-title">☁️ Cloud Projection</span>
+            <span class="section-sub">Projected Scale</span>
+          </div>
+          <table>
+            <thead><tr><th>Config</th><th>Eff.</th><th>Rate</th><th>24h Cap.</th></tr></thead>
+            <tbody>
+              <tr style="background:rgba(20,184,166,.08);"><td>Reference (12T)</td><td>Measured</td><td>55,556/s</td><td>4.80B</td></tr>
+              <tr><td>Cloud 16 (16vCPU)</td><td>70%</td><td>51,852/s</td><td>4.48B</td></tr>
+              <tr><td>Cloud 32 (32vCPU)</td><td>75%</td><td>111,112/s</td><td>9.60B</td></tr>
+              <tr><td>Cloud 96 (96vCPU)</td><td>85%</td><td>377,781/s</td><td>32.64B</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="section">
+          <div class="section-header">
+            <span class="section-title">📋 Methodology and Sources</span>
+          </div>
+          <div class="methodology">
+            <strong>Calculation notes:</strong> Throughput derived from measured execution time (0.000018s). Energy uses Intel-specified 45W TDP.<br><br>
+            <strong>Data definitions:</strong> <strong>M</strong>=Measured, <strong>D</strong>=Derived, <strong>P</strong>=Projected, <strong>N</strong>=Normalized external data.<br><br>
+            <strong>Reference sources:</strong> Intel, Google Cloud, Artificial Analysis, DigitalOcean publications.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footnote" style="margin-top:16px;">
+      <span>Confidential Technical Specification Sheet — Deterministic Photonic Neuromorphic AI Framework (100 Monkeys Reference)</span>
+      <span class="page-num">PAGE 2 OF 2</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">
+      <a href="https://100monkeys.app" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:rgba(20,184,166,.15);border:1px solid rgba(20,184,166,.6);padding:4px 10px;border-radius:6px;color:#14b8a6;font-weight:700;font-size:11px;text-decoration:none;">🔓 DEMO ACCESS</a>
+      <span style="font-size:10px;color:#94a3b8;">Reference implementation: <strong style="color:#14b8a6;">OPERATIONAL</strong></span>
+    </div>
+    <div class="footer-right" style="text-align:right;">
+      <a href="https://100monkeys.app" target="_blank" style="font-size:12px;">100monkeys.app</a>
+      <span style="color:#475569;margin:0 6px;">|</span>
+      <a href="mailto:chad.coulter@100monkeys.app?subject=gr%7BAi%7D%CE%93%20Demo-Site%20API%20Key%20Request" style="font-size:10px;color:#94a3b8;">Demo-site API keys available on demonstrated interest.</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
