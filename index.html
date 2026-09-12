@@ -7,25 +7,27 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0b1118; color: #e2e8f0; -webkit-font-smoothing: antialiased; }
-.flyer-page { width: 100%; max-width: 850px; min-height: 1100px; margin: 0 auto; background: #fff; color: #0f172a; box-shadow: 0 25px 50px -12px rgba(0,0,0,.5); display: flex; flex-direction: column; position: relative; }
+.flyer-page { width: 100%; max-width: 850px; min-height: 1100px; margin: 0 auto; background: #fff; color: #0f172a; box-shadow: 0 25px 50px -12px rgba(0,0,0,.5); display: flex; flex-direction: column; }
 .page-two { page-break-before: always; margin-top: 40px; }
-@media print { body { background: #fff; } .flyer-page { box-shadow: none; margin: 0; max-width: 100%; min-height: 100vh; } .page-two { margin-top: 0; } .no-print { display: none !important; } @page { size: letter portrait; margin: 0.25in; } }
+@media print { body { background: #fff; } .flyer-page { box-shadow: none; margin: 0; max-width: 100%; min-height: 100vh; } .page-two { margin-top: 0; } .no-print { display: none !important; } @page { } }
 .header { background: #0f172a; color: #fff; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #14b8a6; }
 .header-brand { display: flex; align-items: center; gap: 10px; }
 .header-logo { width: 32px; height: 32px; border-radius: 6px; overflow: hidden; }
 .header-logo img { width: 100%; height: 100%; object-fit: cover; }
 .header-title { font-size: 13px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; }
 .header-right { text-align: right; font-size: 11px; color: #14b8a6; font-weight: 600; }
-.hero { background: linear-gradient(135deg, #060b11, #09141f, #04070a); color: #fff; padding: 20px 24px; border-bottom: 2px solid rgba(20,184,166,.5); min-height: 200px; position: relative; overflow: hidden; }
+.hero { background: linear-gradient(135deg, #060b11, #09141f, #04070a); color: #fff; padding: 20px 24px; border-bottom: 2px solid rgba(20,184,166,.5); min-height: 200px; position: relative; overflow: hidden; display: flex; align-items: center; gap: 30px; }
 .hero-glow { position: absolute; right: 0; top: 0; bottom: 0; width: 50%; background: radial-gradient(ellipse at right, rgba(20,184,166,.25), transparent 70%); pointer-events: none; }
-.hero-content { position: relative; z-index: 1; }
-.hero-tag { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 20px; background: rgba(20,184,166,.15); border: 1px solid rgba(20,184,166,.4); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #14b8a6; margin-bottom: 8px; }
+.hero-logo-container { flex-shrink: 0; z-index: 2; }
+.hero-logo-container img { width: 180px; height: auto; filter: drop-shadow(0 0 20px rgba(20,184,166,0.4)); }
+.hero-content { position: relative; z-index: 1; flex: 1; }
+.hero-tag { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 20px; background: rgba(20,184,166,.15); border: 1px solid rgba(20,184,166,.4); font-size: 10px; font-weight: 600; color: #14b8a6; margin-bottom: 8px; }
 .hero-tag-dot { width: 6px; height: 6px; border-radius: 50%; background: #14b8a6; animation: pulse 2s infinite; }
 @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
 .hero h2 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
 .hero p { font-size: 12px; color: #94a3b8; line-height: 1.5; max-width: 500px; margin-bottom: 12px; }
 .spec-box { background: rgba(15,23,24,.85); backdrop-filter: blur(8px); border: 2px solid rgba(20,184,166,.6); border-radius: 8px; padding: 12px 16px; max-width: 340px; }
-.spec-box-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(20,184,166,.3); padding-bottom: 6px; margin-bottom: 8px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #14b8a6; }
+.spec-box-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(20,184,166,.3); padding-bottom: 6px; margin-bottom: 8px; font-size: 10px; font-weight: 600; color: #14b8a6; }
 .spec-box-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; font-size: 11px; }
 .spec-box-grid .label { color: #94a3b8; }
 .spec-box-grid .value { color: #f1f5f9; font-weight: 600; }
@@ -56,7 +58,7 @@ tbody tr:last-child td.grai { border-bottom: 2px solid #14b8a6; }
 .footer-right a { color: #14b8a6; font-weight: 700; text-decoration: none; }
 .footer-right a:hover { text-decoration: underline; }
 .col2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-@media (max-width: 700px) { .col2 { grid-template-columns: 1fr; } }
+@media (max-width: 700px) { .col2 { grid-template-columns: 1fr; } .hero { flex-direction: column; } .hero-logo-container img { width: 140px; } }
 .chart-container { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; }
 .bar-chart { display: flex; align-items: flex-end; gap: 8px; height: 160px; padding-top: 10px; }
 .bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
@@ -111,6 +113,9 @@ tbody tr:last-child td.grai { border-bottom: 2px solid #14b8a6; }
 
   <div class="hero">
     <div class="hero-glow"></div>
+    <div class="hero-logo-container">
+      <img src="https://github.com/sudo-ai-git/gr-Ai-/blob/main/logo-hero.png?raw=true" alt="gr{Ai}Γ Photonic Neuromorphic AI Logo">
+    </div>
     <div class="hero-content">
       <div class="hero-tag"><span class="hero-tag-dot"></span> DETERMINISTIC PHOTONIC NEUROMORPHIC AI FRAMEWORK</div>
       <h2>Deterministic Photonic Neuromorphic Framework <span style="color:#14b8a6;font-size:14px;">v1.0</span></h2>
@@ -177,12 +182,12 @@ tbody tr:last-child td.grai { border-bottom: 2px solid #14b8a6; }
           </tr>
         </thead>
         <tbody>
-          <tr><td class="metric">Reference / model</td><td class="grai">Current prototype</td><td>GPT-5.4 xhigh</td><td>Claude Sonnet 4.6 Max</td><td>DeepSeek V3.2</td><td>Gemini 3.1 Pro</td><td>Google Search</td></tr>
-          <tr><td class="metric">Native operation</td><td class="grai">Complex-set resolution</td><td>Output token</td><td>Output token</td><td>Output token</td><td>Output token</td><td>Search response</td></tr>
+          <tr><td class="metric">Reference / model</td><td class="grai">Current prototype</td><td>GPT-5.4 xhigh</td><td>Claude Sonnet 4.6 Max</td><td>DeepSeek V3.2</td><td>Gemini 3.1 Pro</td><td>Googl[...]</td></tr>
+          <tr><td class="metric">Native operation</td><td class="grai">Complex-set resolution</td><td>Output token</td><td>Output token</td><td>Output token</td><td>Output token</td><td>Search respons[...]</td></tr>
           <tr><td class="metric">Native rate</td><td class="grai">55,556/s</td><td>129.3/s</td><td>~52/s</td><td>230/s</td><td>126.2/s</td><td>~4/s</td></tr>
           <tr><td class="metric">Initial latency</td><td class="grai">0.018 ms</td><td>124.63 s</td><td>~128 s</td><td>0.96 s</td><td>23.18 s</td><td>~250 ms</td></tr>
           <tr><td class="metric">Native output / hour</td><td class="grai">200.0M</td><td>465K</td><td>~187K</td><td>828K</td><td>454K</td><td>~14.4K</td></tr>
-          <tr><td class="metric">GPU / accelerator</td><td class="grai">NONE</td><td>Accelerator infrastructure</td><td>Accelerator infrastructure</td><td>Blackwell Ultra TPU</td><td>Mixed infrastructure</td><td>Distributed infrastructure</td></tr>
+          <tr><td class="metric">GPU / accelerator</td><td class="grai">NONE</td><td>Accelerator infrastructure</td><td>Accelerator infrastructure</td><td>Blackwell Ultra TPU</td><td>Mixed infrastruct[...]</td></tr>
         </tbody>
       </table>
     </div>
@@ -253,7 +258,7 @@ tbody tr:last-child td.grai { border-bottom: 2px solid #14b8a6; }
               <tr><td>Gate XPM</td><td>143.7K eval/sec</td><td>Deterministic</td></tr>
               <tr><td>Measurement</td><td>1.9M shots/sec</td><td>Zero-overhead</td></tr>
               <tr><td>Minsky in-process</td><td>~129K steps/sec</td><td>Synchronous</td></tr>
-              <tr><td style="color:#34d399;font-weight:700;">P1-P4 verification</td><td style="color:#34d399;font-weight:700;">20/20 PASS</td><td style="color:#34d399;font-weight:700;">100% Validated ✓</td></tr>
+              <tr><td style="color:#34d399;font-weight:700;">P1-P4 verification</td><td style="color:#34d399;font-weight:700;">20/20 PASS</td><td style="color:#34d399;font-weight:700;">100% Validated</td></tr>
             </tbody>
           </table>
         </div>
@@ -321,13 +326,13 @@ tbody tr:last-child td.grai { border-bottom: 2px solid #14b8a6; }
 
   <div class="footer">
     <div class="footer-left">
-      <a href="https://100monkeys.app" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:rgba(20,184,166,.15);border:1px solid rgba(20,184,166,.6);padding:4px 10px;border-radius:6px;color:#14b8a6;font-weight:700;font-size:11px;text-decoration:none;">🔓 DEMO ACCESS</a>
+      <a href="https://100monkeys.app" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:rgba(20,184,166,.15);border:1px solid rgba(20,184,166,.6);padding:4px 10px;border-radius:6px;text-decoration:none;color:#14b8a6;font-weight:600;">↗ 100monkeys.app</a>
       <span style="font-size:10px;color:#94a3b8;">Reference implementation: <strong style="color:#14b8a6;">OPERATIONAL</strong></span>
     </div>
     <div class="footer-right" style="text-align:right;">
       <a href="https://100monkeys.app" target="_blank" style="font-size:12px;">100monkeys.app</a>
       <span style="color:#475569;margin:0 6px;">|</span>
-      <a href="mailto:chad.coulter@100monkeys.app?subject=gr%7BAi%7D%CE%93%20Demo-Site%20API%20Key%20Request" style="font-size:10px;color:#94a3b8;">Demo-site API keys available on demonstrated interest.</a>
+      <a href="mailto:chad.coulter@100monkeys.app?subject=gr%7BAi%7D%CE%93%20Demo-Site%20API%20Key%20Request" style="font-size:10px;color:#94a3b8;">Demo-site API keys available on demonstrated interest</a>
     </div>
   </div>
 </div>
